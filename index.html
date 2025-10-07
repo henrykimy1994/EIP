@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Portal - Homepage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: #f5f5f7;
+            min-height: 100vh;
+            padding: 60px 20px;
+            color: #1d1d1f;
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .subtitle {
+            color: #06c;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            letter-spacing: 0.2px;
+        }
+
+        h1 {
+            color: #1d1d1f;
+            font-size: 56px;
+            font-weight: 600;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+
+        .description {
+            color: #6e6e73;
+            font-size: 21px;
+            line-height: 1.5;
+        }
+
+        .sections {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .section-header {
+            padding: 28px 32px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .section-header:hover {
+            background: #fbfbfd;
+        }
+
+        .section-header:active {
+            transform: scale(0.99);
+        }
+
+        .section-info {
+            flex: 1;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 6px;
+        }
+
+        .section-subtitle {
+            font-size: 15px;
+            color: #6e6e73;
+        }
+
+        .section-icon {
+            font-size: 20px;
+            color: #86868b;
+            transition: transform 0.3s ease;
+        }
+
+        .section.active .section-icon {
+            transform: rotate(180deg);
+        }
+
+        .subsections {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section.active .subsections {
+            max-height: 1000px;
+        }
+
+        .subsections-inner {
+            padding: 0 32px 28px 32px;
+            border-top: 1px solid #f5f5f7;
+        }
+
+        .subsection {
+            padding: 16px 20px;
+            margin-top: 12px;
+            background: #fbfbfd;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .subsection:hover {
+            background: #f5f5f7;
+            transform: translateX(4px);
+        }
+
+        .subsection:active {
+            transform: scale(0.98);
+        }
+
+        .subsection-name {
+            font-size: 17px;
+            color: #1d1d1f;
+            font-weight: 400;
+        }
+
+        .subsection-arrow {
+            color: #06c;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 40px;
+            }
+
+            .description {
+                font-size: 19px;
+            }
+
+            .section-header {
+                padding: 24px 24px;
+            }
+
+            .section-title {
+                font-size: 21px;
+            }
+
+            .subsections-inner {
+                padding: 0 24px 24px 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 32px;
+            }
+
+            .header {
+                margin-bottom: 40px;
+            }
+
+            .section-header {
+                padding: 20px 20px;
+            }
+
+            .subsections-inner {
+                padding: 0 20px 20px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="subtitle">정보처리기사 Learning Portal</div>
+            <h1>정보처리기사 QUIZ</h1>
+        </div>
+
+        <div class="sections">
+            <!-- Section 1: Science -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-info">
+                        <div class="section-title">Part 1: 소프트웨어 설계</div>
+                    </div>
+                    <div class="section-icon">▼</div>
+                </div>
+                <div class="subsections">
+                    <div class="subsections-inner">
+                        <div class="subsection" data-section="1" data-subsection="requirements">
+                            <span class="subsection-name">요구사항 확인</span>
+                            <span class="subsection-arrow">→</span>
+                        </div>
+                        <div class="subsection" data-section="1" data-subsection="ui">
+                            <span class="subsection-name">화면 설계</span>
+                            <span class="subsection-arrow">→</span>
+                        </div>
+                        <div class="subsection" data-section="1" data-subsection="application">
+                            <span class="subsection-name">애플리케이션 설계</span>
+                            <span class="subsection-arrow">→</span>
+                        </div>
+                        <div class="subsection" data-section="1" data-subsection="interface">
+                            <span class="subsection-name">인터페이스 설계</span>
+                            <span class="subsection-arrow">→</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Mathematics -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-info">
+                        <div class="section-title">Part 2: Mathematics</div>
+                    </div>
+                    <div class="section-icon">▼</div>
+                </div>
+                <div class="subsections">
+                    <div class="subsections-inner">
+                        <div class="subsection" data-section="2" data-subsection="algebra">
+                            <span class="subsection-name">Algebra</span>
+                            <span class="subsection-arrow">→</span>
+                        </div>
+                        <div class="subsection" data-section="2" data-subsection="geometry">
+                            <span class="subsection-name">Geometry</span>
+                            <span class="subsection-arrow">→</span>
+                        </div>
+                        <div class="subsection" data-section="2" data-subsection="calculus">
+                            <span class="subsection-name">Calculus</span>
+                            <span class="subsection-arrow">→</span>
+                        </div>
+                        <div class="subsection" data-section="2" data-subsection="statistics">
+                            <span class="subsection-name">Statistics</span>
+                            <span class="subsection-arrow">→</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: History -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-info">
+                        <div class="section-title">Part 3: History</div>
+                        <div class="section-subtitle">Learn from the past</div>
+                    </div>
+                    <div class="section-icon">▼</div>
+                </div>
+                <div class="subsections">
+                    <div class="subsections-inner">
+                        <div class="subsection" data-section="3" data-subsection="ancient">
+                            <span class="subsection-name">Ancient Civilizations</span>
+                            <span class="subsection-arrow">→</span>
+                        </div>
+                        <div class="subsection" data-section="3" data-subsection="medieval">
+                            <span class="subsection-name">Medieval Period</span>
+                            <span class="subsection-arrow">→</span>
+                        </div>
+                        <div class="subsection" data-section="3" data-subsection="modern">
+                            <span class="subsection-name">Modern History</span>
+                            <span class="subsection-arrow">→</span>
+                        </div>
+                        <div class="subsection" data-section="3" data-subsection="world-wars">
+                            <span class="subsection-name">World Wars</span>
+                            <span class="subsection-arrow">→</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Literature -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-info">
+                        <div class="section-title">Part 4: Literature</div>
+                        <div class="section-subtitle">Discover great works</div>
+                    </div>
+                    <div class="section-icon">▼</div>
+                </div>
+                <div class="subsections">
+                    <div class="subsections-inner">
+                        <div class="subsection" data-section="4" data-subsection="poetry">
+                            <span class="subsection-name">Poetry</span>
+                            <span class="subsection-arrow">→</span>
+                        </div>
+                        <div class="subsection" data-section="4" data-subsection="novels">
+                            <span class="subsection-name">Novels</span>
+                            <span class="subsection-arrow">→</span>
+                        </div>
+                        <div class="subsection" data-section="4" data-subsection="drama">
+                            <span class="subsection-name">Drama</span>
+                            <span class="subsection-arrow">→</span>
+                        </div>
+                        <div class="subsection" data-section="4" data-subsection="essays">
+                            <span class="subsection-name">Essays</span>
+                            <span class="subsection-arrow">→</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Geography -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-info">
+                        <div class="section-title">Part 5: Geography</div>
+                        <div class="section-subtitle">Explore our planet</div>
+                    </div>
+                    <div class="section-icon">▼</div>
+                </div>
+                <div class="subsections">
+                    <div class="subsections-inner">
+                        <div class="subsection" data-section="5" data-subsection="continents">
+                            <span class="subsection-name">Continents & Oceans</span>
+                            <span class="subsection-arrow">→</span>
+                        </div>
+                        <div class="subsection" data-section="5" data-subsection="climate">
+                            <span class="subsection-name">Climate & Weather</span>
+                            <span class="subsection-arrow">→</span>
+                        </div>
+                        <div class="subsection" data-section="5" data-subsection="landmarks">
+                            <span class="subsection-name">Famous Landmarks</span>
+                            <span class="subsection-arrow">→</span>
+                        </div>
+                        <div class="subsection" data-section="5" data-subsection="countries">
+                            <span class="subsection-name">Countries & Capitals</span>
+                            <span class="subsection-arrow">→</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle sections
+        const sectionHeaders = document.querySelectorAll('.section-header');
+        sectionHeaders.forEach(header => {
+            header.addEventListener('click', function() {
+                const section = this.parentElement;
+                const wasActive = section.classList.contains('active');
+                
+                // Close all sections
+                document.querySelectorAll('.section').forEach(s => {
+                    s.classList.remove('active');
+                });
+                
+                // Open clicked section if it wasn't active
+                if (!wasActive) {
+                    section.classList.add('active');
+                }
+            });
+        });
+
+        // Navigate to questions page
+        const subsections = document.querySelectorAll('.subsection');
+        subsections.forEach(subsection => {
+            subsection.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const section = this.dataset.section;
+                const subsectionName = this.dataset.subsection;
+                const subsectionTitle = this.querySelector('.subsection-name').textContent;
+                
+                // Store data for the questions page
+                const data = {
+                    section: section,
+                    subsection: subsectionName,
+                    title: subsectionTitle
+                };
+                
+                // Save to sessionStorage
+                sessionStorage.setItem('currentTopic', JSON.stringify(data));
+                
+                // Navigate to questions listing page
+                // Uncomment the line below when you have the actual file:
+                // window.location.href = 'questions.html';
+                
+                window.location = `/${section}_${subsectionName}.html?section=${section}&subsectionName=${subsectionName}`;
+            });
+        });
+    </script>
+</body>
+</html>

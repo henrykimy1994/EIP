@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question 1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: #f5f5f7;
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #1d1d1f;
+        }
+
+        .container {
+            background: white;
+            border-radius: 18px;
+            max-width: 780px;
+            width: 100%;
+            padding: 60px;
+            animation: fadeIn 0.8s ease-out;
+            margin: 0 auto;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .part-tag {
+            display: inline-block;
+            color: #6e6e73;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .subject {
+            color: #06c;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            letter-spacing: 0.2px;
+        }
+
+        h1 {
+            color: #1d1d1f;
+            margin-bottom: 12px;
+            font-size: 40px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .question {
+            font-size: 21px;
+            color: #1d1d1f;
+            margin-bottom: 40px;
+            margin-top: 24px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            background: #fbfbfd;
+            border: 1px solid #d2d2d7;
+            border-radius: 12px;
+            padding: 20px 24px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .option:hover {
+            background: #f5f5f7;
+            border-color: #06c;
+            transform: scale(1.01);
+        }
+
+        .option.selected {
+            background: #06c;
+            color: white;
+            border-color: #06c;
+        }
+
+        .option.correct {
+            background: #34c759;
+            color: white;
+            border-color: #34c759;
+            animation: correctScale 0.4s ease;
+        }
+
+        .option.wrong {
+            background: white;
+            border-color: #ff3b30;
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes correctScale {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-8px);
+            }
+            75% {
+                transform: translateX(8px);
+            }
+        }
+
+        .option.disabled {
+            cursor: default;
+            opacity: 0.5;
+        }
+
+        .option-letter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #e8e8ed;
+            color: #1d1d1f;
+            margin-right: 16px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover .option-letter {
+            background: #06c;
+            color: white;
+        }
+
+        .option.selected .option-letter,
+        .option.correct .option-letter {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        .option.wrong .option-letter {
+            background: #ff3b30;
+            color: white;
+        }
+
+        .option-text {
+            font-size: 17px;
+            font-weight: 400;
+        }
+
+        .hint-box {
+            background: #fff;
+            border: 1px solid #ff3b30;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .hint-box.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hint-title {
+            font-weight: 600;
+            color: #ff3b30;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .hint-text {
+            color: #6e6e73;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .explanation-box {
+            background: #f0fdf4;
+            border: 1px solid #34c759;
+            border-radius: 12px;
+            padding: 28px;
+            margin-top: 32px;
+            display: none;
+            animation: slideIn 0.4s ease;
+        }
+
+        .explanation-box.show {
+            display: block;
+        }
+
+        .explanation-title {
+            font-weight: 600;
+            color: #34c759;
+            margin-bottom: 16px;
+            font-size: 19px;
+        }
+
+        .explanation-text {
+            color: #1d1d1f;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .attempts {
+            text-align: center;
+            color: #86868b;
+            font-size: 13px;
+            margin-top: 24px;
+        }
+
+        .reset-btn {
+            background: #06c;
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 980px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 24px;
+            margin-right: 12px;
+            display: none;
+            transition: all 0.2s ease;
+        }
+
+        .reset-btn.show {
+            display: inline-block;
+        }
+
+        .reset-btn:hover {
+            background: #0077ed;
+            transform: scale(1.02);
+        }
+
+        .reset-btn:active {
+            transform: scale(0.98);
+        }
+
+        .next-btn {
+            background: #34c759;
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 980px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 24px;
+            display: none;
+            transition: all 0.2s ease;
+        }
+
+        .next-btn.show {
+            display: inline-block;
+        }
+
+        .next-btn:hover {
+            background: #30b350;
+            transform: scale(1.02);
+        }
+
+        .next-btn:active {
+            transform: scale(0.98);
+        }
+
+        .floating-back {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            background: white;
+            color: #06c;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 14px 24px;
+            border-radius: 980px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            z-index: 100;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .floating-back:hover {
+            background: #f5f5f7;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .floating-back:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 30px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .question {
+                font-size: 19px;
+            }
+
+            .floating-back {
+                bottom: 24px;
+                right: 24px;
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .question {
+                font-size: 17px;
+            }
+
+            .option {
+                padding: 16px 20px;
+            }
+
+            .floating-back {
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="part-tag">소프트웨어 설계</div>
+        <div class="subject">요구사항 확인 • 소프트웨어 공학의 기본 원칙</div>
+        <h1>Question 1</h1>
+        <div class="question">
+            소프트웨어 공학의 기본 원칙이라고 볼 수 없는 것은?
+        </div>
+
+        <div class="options">
+            <div class="option" data-answer="wrong" data-hint="인력은 최대한 많이 투입하는 것이 아니라 가능한 효율적으로 투입되어야 합니다.">
+                <span class="option-letter">A</span>
+                <span class="option-text">품질 높은 소프트웨어 상품 개발</span>
+            </div>
+            <div class="option" data-answer="wrong" data-hint="인력은 최대한 많이 투입하는 것이 아니라 가능한 효율적으로 투입되어야 합니다.">
+                <span class="option-letter">B</span>
+                <span class="option-text">지속적인 검증 시행</span>
+            </div>
+            <div class="option" data-answer="wrong" data-hint="인력은 최대한 많이 투입하는 것이 아니라 가능한 효율적으로 투입되어야 합니다.">
+                <span class="option-letter">C</span>
+                <span class="option-text">결과에 대한 명확한 기록 유지</span>
+            </div>
+            <div class="option" data-answer="correct">
+                <span class="option-letter">D</span>
+                <span class="option-text">최대한 많은 인력 투입</span>
+            </div>
+        </div>
+
+        <div class="hint-box" id="hintBox">
+            <div class="hint-title">Hint</div>
+            <div class="hint-text" id="hintText"></div>
+        </div>
+
+        <div class="explanation-box" id="explanationBox">
+            <div class="explanation-title">Correct!</div>
+            <div class="explanation-text">
+                * 현대적인 프로그래밍 기술을 계속적으로 적용해야 한다.</br>
+                * 개발된 소프트웨어의 품질이 유지되도록 지속적으로 검증해야 한다.</br>
+                * 소프트웨어 개발관련 사항 및 결과에 대한 명확한 기록을 유지해야 한다.
+
+            </div>
+        </div>
+
+        <div class="attempts" id="attempts">Attempts: 0</div>
+        <div>
+            <button class="reset-btn" id="resetBtn">Try Again</button>
+            <button class="next-btn" id="nextBtn">Next Question</button>
+        </div>
+    </div>
+
+    <a href="#" class="floating-back" onclick="goBack(); return false;">
+        ← Back to Questions
+    </a>
+
+    <script>
+        const options = document.querySelectorAll('.option');
+        const hintBox = document.getElementById('hintBox');
+        const hintText = document.getElementById('hintText');
+        const explanationBox = document.getElementById('explanationBox');
+        const attemptsDisplay = document.getElementById('attempts');
+        const resetBtn = document.getElementById('resetBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let attempts = 0;
+        let answered = false;
+
+        options.forEach(option => {
+            option.addEventListener('click', function() {
+                if (answered) return;
+
+                const isCorrect = this.dataset.answer === 'correct';
+                attempts++;
+                attemptsDisplay.textContent = `Attempts: ${attempts}`;
+
+                if (isCorrect) {
+                    this.classList.add('correct');
+                    options.forEach(opt => opt.classList.add('disabled'));
+                    hintBox.classList.remove('show');
+                    
+                    setTimeout(() => {
+                        explanationBox.classList.add('show');
+                        resetBtn.classList.add('show');
+                        nextBtn.classList.add('show');
+                        
+                        // Mark question as completed
+                        markQuestionCompleted();
+                    }, 400);
+                    
+                    answered = true;
+                } else {
+                    this.classList.add('wrong');
+                    
+                    const hint = this.dataset.hint;
+                    hintText.textContent = hint;
+                    hintBox.classList.add('show');
+
+                    setTimeout(() => {
+                        this.classList.remove('wrong');
+                    }, 400);
+                }
+            });
+        });
+
+        resetBtn.addEventListener('click', function() {
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'wrong', 'disabled');
+            });
+            hintBox.classList.remove('show');
+            explanationBox.classList.remove('show');
+            resetBtn.classList.remove('show');
+            nextBtn.classList.remove('show');
+            attempts = 0;
+            attemptsDisplay.textContent = `Attempts: ${attempts}`;
+            answered = false;
+        });
+
+        nextBtn.addEventListener('click', function() {
+            // Navigate to next question
+            // Uncomment the line below when you have multiple questions:
+            // window.location.href = 'question.html?id=2';
+
+            const params = getParams();
+            console.log(Number(params.questionId)+1);
+            const nextQuestionId = Number(params.questionId)+1;
+            if(nextQuestionId > params.total) {
+                alert("Congratulations!\nYou've completed all questions.");
+                return;
+            }
+            window.location = `/${params.section}_${params.subsecction}.html?section=${params.section}&subsectionName=${params.subsectionName}&total=${params.total}`;
+        });
+
+        function markQuestionCompleted() {
+            const questionId = '1'; // In real app, get from URL parameter
+            let completed = JSON.parse(sessionStorage.getItem('completedQuestions') || '[]');
+            if (!completed.includes(questionId)) {
+                completed.push(questionId);
+                sessionStorage.setItem('completedQuestions', JSON.stringify(completed));
+            }
+        }
+
+        function goBack() {
+            // Navigate back to questions listing
+            // Uncomment the line below when you have the actual file:
+            // window.location.href = 'questions.html';
+
+            const params = getParams();
+            window.location = `/${params.section}_${params.subsectionName}.html?section=${params.section}&subsectionName=${params.subsectionName}&total=${params.total}`;
+        }
+
+        function getParams() {
+            const queryString = window.location.search;
+            const params = new URLSearchParams(queryString);
+            const section = params.get('section');
+            const subsectionName = params.get('subsectionName');
+            const questionId = params.get('questionId');
+            const total = params.get('total');
+
+            return {
+                section: section,
+                subsectionName: subsectionName,
+                questionId: questionId,
+                total: total
+            }
+        }
+    </script>
+</body>
+</html>
